@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dev Sirohi</title>
 
     <style>
         @font-face {
@@ -41,11 +41,24 @@
             /* margin-bottom: 1rem; */
         }
 
-        .intro-block {
+        .intro {
             /* background-color: cornflowerblue; */
             min-height: 10vh;
             display: flex;
+            justify-content: space-around;
+            min-width: 50vw;
+        }
+
+        .basic-info {
+            display: flex;
             flex-direction: column;
+            justify-content: center;
+        }
+
+        .socials {
+            display: flex;
+            flex-direction: column;
+            font-size: 1rem;
         }
 
         .name {
@@ -86,7 +99,8 @@
             flex-wrap: wrap;
             /* justify-content: flex-start; */
             /* background-color: beige; */
-            max-width: 50vw;
+            /* min-width: 50vw; */
+            min-height: 50vh;
         }
 
         .content-block {
@@ -100,13 +114,13 @@
             padding: 1rem;
         }
 
-        .project-title {
+        .content-title {
             /* background-color: aqua; */
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
 
-        .project-desc {
+        .content-desc {
             /* background-color: azure; */
             font-size: 1rem;
             margin-bottom: 0.5rem;
@@ -127,6 +141,12 @@
             z-index: 1000;
             display: flex;
             justify-content: center;
+            background-color: cornsilk;
+        }
+
+        .nocontent {
+            align-self: center;
+            justify-self: center;
         }
     </style>
 
@@ -134,35 +154,22 @@
 
 <body>
     <div class="main">
-        <div class="intro-block">
-            <span class="name">Dev Sirohi</span>
-            <span class="tagline">A software developer</span>
+        <div class="intro">
+            <div class="basic-info">
+                <span class="name"></span>
+                <span class="tagline"></span>
+            </div>
+            <div class="socials"></div>
         </div>
 
         <div class="navbar">
-            <span class="navbar-item">
-                <i>Projects</i>
-            </span>
-            <span class="navbar-item">
-                <i>Recreational</i>
-            </span>
-            <span class="navbar-item">
-                <i>About</i>
-            </span>
         </div>
 
         <div class="main-content">
-            <div class="content-block">
-                <span class="project-title">Mini-Credis</span>
-                <span class="project-desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse,
-                    sapiente quibusdam inventore asperiores illum praesentium possimus doloremque perferendis sit quas
-                    saepe temporibus numquam voluptatem quae facilis explicabo porro!</span>
-                <span class="writeup"><i class="writeup-link">Writeup</i></span>
-            </div>
         </div>
     </div>
 
-    <footer>Created by <i>Dev Sirohi</i></footer>
+    <footer>Created by <i style="margin-left: 0.5rem;">Dev Sirohi</i></footer>
 
     <script src="/script.js"></script>
 </body>

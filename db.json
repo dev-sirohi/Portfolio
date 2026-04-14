@@ -8,6 +8,14 @@
             "LinkedIn": "",
             "Github": "",
             "X": ""
+        },
+        "About": {
+            "Name": "About",
+            "TabContentFormat": "About",
+            "TabContent": {
+                "ProfilePic": true,
+                "ProfilePicLink": ""
+            }
         }
     },
     "Content": {
@@ -37,6 +45,27 @@
                             "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
                             "WriteUp": true,
                             "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Mini-Redis",
+                            "NameLink": "",
+                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
+                            "WriteUp": true,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Microblog",
+                            "NameLink": "",
+                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
+                            "WriteUp": true,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Mini-Redis2",
+                            "NameLink": "",
+                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
+                            "WriteUp": true,
+                            "WriteUpLink": ""
                         }
                     ]
                 }
@@ -45,14 +74,6 @@
                 "Name": "Recreational",
                 "TabContentFormat": "Grid",
                 "TabContent": {}
-            },
-            {
-                "Name": "About",
-                "TabContentFormat": "About",
-                "TabContent": {
-                    "ProfilePic": true,
-                    "ProfilePicLink": ""
-                }
             }
         ]
     }
