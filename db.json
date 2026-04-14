@@ -1,0 +1,59 @@
+{
+    "OwnerInfo": {
+        "FirstName": "Dev",
+        "LastName": "Sirohi",
+        "Tagline": "A software developer",
+        "Socials": {
+            "Instagram": "",
+            "LinkedIn": "",
+            "Github": "",
+            "X": ""
+        }
+    },
+    "Content": {
+        "Tabs": [
+            {
+                "Name": "Projects",
+                "TabContentFormat": "Grid",
+                "TabContent": {
+                    "ContentList": [
+                        {
+                            "Name": "Mini-Redis",
+                            "NameLink": "",
+                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
+                            "WriteUp": true,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Microblog",
+                            "NameLink": "",
+                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
+                            "WriteUp": true,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Mini-Redis2",
+                            "NameLink": "",
+                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
+                            "WriteUp": true,
+                            "WriteUpLink": ""
+                        }
+                    ]
+                }
+            },
+            {
+                "Name": "Recreational",
+                "TabContentFormat": "Grid",
+                "TabContent": {}
+            },
+            {
+                "Name": "About",
+                "TabContentFormat": "About",
+                "TabContent": {
+                    "ProfilePic": true,
+                    "ProfilePicLink": ""
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        @font-face {
+            font-family: "GoMono-Nerd";
+            src: url("/Go-Mono/GoMonoNerdFont-Regular.ttf");
+        }
+
+        @font-face {
+            font-family: "IM-Fell-DW-Pica";
+            src: url("/imfell/IMFellDWPica-Regular.ttf");
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: cornsilk;
+            /* font-family: "GoMono-Nerd", monospace; */
+            font-family: "IM-Fell-DW-Pica", serif;
+            font-size: 125%;
+        }
+
+        .main {
+            padding: 2rem;
+            max-width: 100%;
+            /* height: 100vh; */
+            /* background-color: antiquewhite; */
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .main div {
+            max-width: 50vw;
+            /* margin-bottom: 1rem; */
+        }
+
+        .intro-block {
+            /* background-color: cornflowerblue; */
+            min-height: 10vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .name {
+            font-size: 2rem;
+        }
+
+        .navbar {
+            min-width: 50vw;
+            display: flex;
+            justify-content: space-evenly;
+            font-size: 1.3rem;
+            padding: 1rem;
+        }
+
+        .navbar-item {
+            border: 1px black solid;
+            border-width: 1px 0px 1px 1px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            /* box-sizing: border-box; */
+        }
+
+        .navbar-item:last-child {
+            /* To fix overlapping border issue */
+            border: 1px black solid;
+            border-width: 1px 1px 1px 1px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            /* box-sizing: border-box; */
+        }
+
+        /* PROJECT STYLES */
+
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            /* justify-content: flex-start; */
+            /* background-color: beige; */
+            max-width: 50vw;
+        }
+
+        .content-block {
+            /* background-color: burlywood; */
+            height: max-content;
+            width: 20vw;
+            /* min-width: 10vw;
+            max-width: 10vw; */
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .project-title {
+            /* background-color: aqua; */
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            /* background-color: azure; */
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .writeup {
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1rem;
+            padding: 0.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="main">
+        <div class="intro-block">
+            <span class="name">Dev Sirohi</span>
+            <span class="tagline">A software developer</span>
+        </div>
+
+        <div class="navbar">
+            <span class="navbar-item">
+                <i>Projects</i>
+            </span>
+            <span class="navbar-item">
+                <i>Recreational</i>
+            </span>
+            <span class="navbar-item">
+                <i>About</i>
+            </span>
+        </div>
+
+        <div class="main-content">
+            <div class="content-block">
+                <span class="project-title">Mini-Credis</span>
+                <span class="project-desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse,
+                    sapiente quibusdam inventore asperiores illum praesentium possimus doloremque perferendis sit quas
+                    saepe temporibus numquam voluptatem quae facilis explicabo porro!</span>
+                <span class="writeup"><i class="writeup-link">Writeup</i></span>
+            </div>
+        </div>
+    </div>
+
+    <footer>Created by <i>Dev Sirohi</i></footer>
+
+    <script src="/script.js"></script>
+</body>
+
+</html>
