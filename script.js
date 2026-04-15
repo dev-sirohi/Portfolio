@@ -347,30 +347,28 @@ async function fn_loadAboutContentAsync(content = {}) {
     const $container = document.createElement("div");
     $container.classList.add("about-root");
 
-    const $header = document.createElement("div");
-    $header.classList.add("about-header");
-
     if (showPic && picLink) {
+        const $header = document.createElement("div");
+        $header.classList.add("about-header");
         const $img = document.createElement("img");
         $img.src = picLink;
         $img.classList.add("about-pic");
         $header.appendChild($img);
+        // const $name = document.createElement("h2");
+        // $name.innerText = "Dev Sirohi";
+        // $name.classList.add("about-name");
+
+        // const $desc = document.createElement("p");
+        // $desc.classList.add("about-desc");
+        // $desc.innerHTML = `
+        //     Software engineer building backend-heavy systems.<br>
+        //     Focused on performance, networking, and low-level design.
+        // `;
+
+        // $header.appendChild($name);
+        // $header.appendChild($desc);
+        $container.appendChild($header);
     }
-
-    // const $name = document.createElement("h2");
-    // $name.innerText = "Dev Sirohi";
-    // $name.classList.add("about-name");
-
-    // const $desc = document.createElement("p");
-    // $desc.classList.add("about-desc");
-    // $desc.innerHTML = `
-    //     Software engineer building backend-heavy systems.<br>
-    //     Focused on performance, networking, and low-level design.
-    // `;
-
-    // $header.appendChild($name);
-    // $header.appendChild($desc);
-    $container.appendChild($header);
 
     if (exp.length) {
         const $section = document.createElement("div");
@@ -414,6 +412,9 @@ async function fn_loadAboutContentAsync(content = {}) {
         $title.innerText = "Education";
         $section.appendChild($title);
 
+        const $innerSection = document.createElement("div");
+        $innerSection.classList.add("about-edu-section");
+
         edu.forEach((e) => {
             const $item = document.createElement("div");
             $item.classList.add("about-item");
@@ -424,8 +425,10 @@ async function fn_loadAboutContentAsync(content = {}) {
                 ${e.StartDate} - ${e.IsOngoing ? "Present" : e.EndDate}
             `;
 
-            $section.appendChild($item);
+            $innerSection.appendChild($item);
         });
+
+        $section.appendChild($innerSection);
 
         $container.appendChild($section);
     }

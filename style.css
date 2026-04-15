@@ -216,10 +216,9 @@ footer {
         width: 100%;
     }
 }
-
 .about-root {
-    max-width: 700px;
-    margin: 0 auto;
+    max-width: 100%;
+    padding: 2rem;
 }
 
 .about-header {
@@ -228,8 +227,8 @@ footer {
 }
 
 .about-pic {
-    width: 120px;
-    height: 120px;
+    width: 7.5rem; /* 120px */
+    height: 7.5rem;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 1rem;
@@ -247,13 +246,20 @@ footer {
     margin-top: 2rem;
 }
 
+.about-section > h3 {
+    justify-self: center;
+}
+
+.about-edu-section {
+    display: flex;
+    justify-content: space-around;
+}
+
 .about-item {
     margin-bottom: 1rem;
 }
 
 .about-meta {
-    /* font-size: 0.85rem;
-    opacity: 0.6; */
     margin-bottom: 1rem;
 }
 
