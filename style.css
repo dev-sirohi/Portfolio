@@ -1,0 +1,270 @@
+@font-face {
+    font-family: "GoMono-Nerd";
+    src: url("./Go-Mono/GoMonoNerdFont-Regular.ttf");
+}
+
+@font-face {
+    font-family: "IM-Fell-DW-Pica";
+    src: url("./imfell/IMFellDWPica-Regular.ttf");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: cornsilk;
+    /* font-family: "GoMono-Nerd", monospace; */
+    font-family: "IM-Fell-DW-Pica", serif;
+    font-size: 125%;
+}
+
+.main {
+    padding: 2rem;
+    max-width: 100%;
+    /* height: 100vh; */
+    /* background-color: antiquewhite; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main div {
+    max-width: 50vw;
+    /* margin-bottom: 1rem; */
+}
+
+.intro {
+    /* background-color: cornflowerblue; */
+    min-height: 10vh;
+    display: flex;
+    justify-content: space-around;
+    min-width: 50vw;
+}
+
+.basic-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.name {
+    font-size: 2rem;
+}
+
+.tagline {
+    font-size: 1rem;
+    max-width: 25vw;
+}
+
+.socials {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.15rem;
+}
+
+.link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.navbar {
+    min-width: 50vw;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.3rem;
+    padding: 1rem;
+}
+
+.navbar-item {
+    border: 1px black solid;
+    border-width: 1px 0px 1px 1px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* box-sizing: border-box; */
+    /* transition: background-color 0.15s 0.05s ease-in-out; */
+}
+
+.navbar-item-inner {
+    cursor: pointer;
+}
+
+/* .navbar-item:hover {
+            text-decoration: underline;
+        } */
+
+.navbar-item:last-child {
+    /* To fix overlapping border issue */
+    border: 1px black solid;
+    border-width: 1px 1px 1px 1px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* box-sizing: border-box; */
+}
+
+.navbar .active {
+    text-decoration: underline;
+}
+
+/* PROJECT STYLES */
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: flex-start; */
+    /* background-color: beige; */
+    /* min-width: 50vw; */
+    min-height: 50vh;
+    justify-content: center;
+}
+
+.content-block {
+    /* background-color: burlywood; */
+    height: max-content;
+    width: 20vw;
+    /* min-width: 10vw;
+            max-width: 10vw; */
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    transition: background-color 0.15s 0.05s ease-in-out;
+}
+
+.content-block:hover {
+    background-color: black;
+    color: cornsilk;
+    font-size: 3rem;
+}
+
+.content-title {
+    /* background-color: aqua; */
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.content-desc {
+    /* background-color: azure; */
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.writeup {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1rem;
+    padding: 0.5rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    background-color: cornsilk;
+}
+
+.nocontent {
+    align-self: center;
+    justify-self: center;
+}
+
+@media (max-width: 768px) {
+    .main div {
+        max-width: 95vw;
+    }
+
+    .intro {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .tagline {
+        max-width: 100%;
+    }
+
+    .socials {
+        flex-direction: row;
+        /* ← horizontal socials */
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .navbar {
+        display: none;
+        /* ← kill tabs */
+    }
+
+    .main-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .content-block {
+        width: 100%;
+    }
+
+    .divider {
+        border: none;
+        border-top: 1px solid black;
+        margin: 1.5rem 0;
+        width: 100%;
+    }
+}
+
+.about-root {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.about-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.about-name {
+    margin: 0;
+}
+
+.about-desc {
+    opacity: 0.8;
+}
+
+.about-section {
+    margin-top: 2rem;
+}
+
+.about-item {
+    margin-bottom: 1rem;
+}
+
+.about-meta {
+    /* font-size: 0.85rem;
+    opacity: 0.6; */
+    margin-bottom: 1rem;
+}
+
+.tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tech-chip {
+    border: 1px solid black;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.9rem;
+}

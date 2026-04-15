@@ -2,11 +2,12 @@
     "OwnerInfo": {
         "FirstName": "Dev",
         "LastName": "Sirohi",
-        "Tagline": "A software developer",
+        "PhoneNumber": "(+91) 989-953-7470",
+        "Tagline": "Software engineer with experience building enterprise ERP/WMS systems using <b>.NET (C#)</b>, <b>SQL Server</b>, and <b>JavaScript</b>. Currently deepening expertise in systems programming, networking, and performance-oriented backend systems.",
         "Socials": {
-            "Instagram": "",
-            "LinkedIn": "",
-            "Github": "",
+            "Instagram": "https://instagram.com/dev_sirohi_",
+            "LinkedIn": "https://linkedin.com/in/devsirohi179",
+            "Github": "https://github.com/dev-sirohi",
             "X": ""
         },
         "About": {
@@ -14,7 +15,48 @@
             "TabContentFormat": "About",
             "TabContent": {
                 "ProfilePic": true,
-                "ProfilePicLink": ""
+                "ProfilePicLink": "",
+                "ProfessionalExperience": [
+                    {
+                        "CompanyName": "Xorosoft Technologies",
+                        "CompanyWebsiteLink": "",
+                        "JobType": "Associate Software Engineer",
+                        "Location": "On-site",
+                        "JoinDate": "Jan 2024",
+                        "EndDate": "",
+                        "IsCurrentJob": true,
+                        "Description": "Working on ERP/WMS systems. Built complex inventory, sales, and manufacturing modules. Optimized backend APIs (50k → <50 calls), improved query performance, and handled full dev → QA → release lifecycle."
+                    }
+                ],
+                "Education": [
+                    {
+                        "Course": "B.E. CSE (Data Science)",
+                        "StartDate": "2020",
+                        "EndDate": "2024",
+                        "IsOngoing": false,
+                        "Institution": "Chandigarh University",
+                        "InstitutionWebsiteLink": ""
+                    },
+                    {
+                        "Course": "Senior Secondary (12th)",
+                        "StartDate": "2018",
+                        "EndDate": "2020",
+                        "IsOngoing": false,
+                        "Institution": "Ryan International School",
+                        "InstitutionWebsiteLink": ""
+                    }
+                ],
+                "TechStack": [
+                    ".NET (C#)",
+                    "ASP.NET Core",
+                    "SQL Server",
+                    "JavaScript",
+                    "React",
+                    "Redis",
+                    "Docker",
+                    "TCP / Networking",
+                    "Systems Programming"
+                ]
             }
         }
     },
@@ -26,45 +68,45 @@
                 "TabContent": {
                     "ContentList": [
                         {
-                            "Name": "Mini-Redis",
+                            "Name": "ERP/WMS Modules (Professional Work)",
                             "NameLink": "",
-                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
+                            "Description": "Developed and optimized multiple ERP/WMS modules including inventory movement, multi-carton receiving, allocation logic, and sales workflows. Reduced API calls from ~50k to <50 through backend optimization and query tuning.",
+                            "WriteUp": false,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Credis (Mini Redis)",
+                            "NameLink": "",
+                            "Description": "Redis-inspired in-memory key-value store built from scratch using raw TCP sockets. Implements RESP protocol parsing with zero-copy techniques using Span/Memory, optimized with ArrayPool to reduce GC pressure. Supports concurrent access via thread-safe structures and async I/O for high throughput.",
                             "WriteUp": true,
                             "WriteUpLink": ""
                         },
                         {
-                            "Name": "Microblog",
+                            "Name": "Microblog Platform (Backend)",
                             "NameLink": "",
-                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
+                            "Description": "Full-stack microblogging platform with JWT-based authentication (access + refresh tokens), secure cookie handling, and role-based access control. Backend built in ASP.NET Core with planned Redis caching for feed optimization. Frontend built with React featuring protected routes and dynamic feeds.",
                             "WriteUp": true,
                             "WriteUpLink": ""
                         },
                         {
-                            "Name": "Mini-Redis2",
+                            "Name": "Bookseller (Backend - WIP)",
                             "NameLink": "",
-                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
-                            "WriteUp": true,
+                            "Description": "Backend system for an online bookstore supporting catalog management, inventory tracking, and order workflows. Designed REST APIs with proper validation, relational data modeling, and optimized SQL queries for performance under load.",
+                            "WriteUp": false,
                             "WriteUpLink": ""
                         },
                         {
-                            "Name": "Mini-Redis",
+                            "Name": "Personal Budget Tracker (Collaborative - DNF)",
                             "NameLink": "",
-                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
-                            "WriteUp": true,
+                            "Description": "Expense tracking system to monitor income, spending, and category-based budgeting. Focused on clean data modeling, aggregation queries, and generating insights like monthly trends and category breakdowns.",
+                            "WriteUp": false,
                             "WriteUpLink": ""
                         },
                         {
-                            "Name": "Microblog",
+                            "Name": "Semantic Tagging Prototype (Professional Work)",
                             "NameLink": "",
-                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
-                            "WriteUp": true,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Mini-Redis2",
-                            "NameLink": "",
-                            "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil nisi esse, sapiente quibusdam inventore asperiores illum  praesentium possimus doloremque perferendis sit quas saepe temporibus numquam voluptatem quae facilis explicabo porro!",
-                            "WriteUp": true,
+                            "Description": "Lightweight system for generating and comparing text embeddings to enable intelligent tagging and improved search relevance. Designed as a foundation for AI-assisted categorization in enterprise systems.",
+                            "WriteUp": false,
                             "WriteUpLink": ""
                         }
                     ]
@@ -73,7 +115,52 @@
             {
                 "Name": "Recreational",
                 "TabContentFormat": "Grid",
-                "TabContent": {}
+                "TabContent": {
+                    "ContentList": [
+                        {
+                            "Name": "Build Your Own TCP Stack (WIP)",
+                            "NameLink": "",
+                            "Description": "Exploring low-level networking by implementing parts of TCP behavior manually—connection handling, packet parsing, and state transitions—to understand how networking actually works under the hood.",
+                            "WriteUp": false,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Mini HTTP Server in C",
+                            "NameLink": "",
+                            "Description": "Barebones HTTP server built using sockets in C. Handles request parsing, routing, and static responses while focusing on performance, memory control, and understanding protocol-level behavior.",
+                            "WriteUp": false,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Custom Memory Allocator",
+                            "NameLink": "",
+                            "Description": "Experimenting with writing a malloc/free replacement to understand heap management, fragmentation, and performance tradeoffs in memory allocation.",
+                            "WriteUp": false,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Concurrency Playground",
+                            "NameLink": "",
+                            "Description": "Collection of experiments around threads, async models, lock-free structures, and synchronization primitives to deeply understand concurrency patterns and pitfalls.",
+                            "WriteUp": false,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Log-Structured Storage Engine",
+                            "NameLink": "",
+                            "Description": "Attempt to build a simple append-only storage engine inspired by LSM trees. Focus on write optimization, compaction strategies, and disk I/O behavior.",
+                            "WriteUp": false,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Protocol Implementations (RESP, HTTP, Custom)",
+                            "NameLink": "",
+                            "Description": "Re-implementing protocols from scratch (like Redis RESP and HTTP) to understand wire formats, parsing efficiency, and real-world networking constraints.",
+                            "WriteUp": false,
+                            "WriteUpLink": ""
+                        }
+                    ]
+                }
             }
         ]
     }
