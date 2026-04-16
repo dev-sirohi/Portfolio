@@ -561,7 +561,6 @@ const Utils = {
 
             const objAKeyListSorted = Object.keys(objA).toSorted();
             const objBKeyListSorted = Object.keys(objB).toSorted();
-            debugger;
             if (objAKeyListSorted.length !== objBKeyListSorted.length) {
                 validator.Result = false;
                 validator.Message = "Uneven key length";

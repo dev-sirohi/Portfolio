@@ -214,7 +214,8 @@ footer {
     }
 
     .content-block {
-        width: 100%;
+        height: max-content;
+        min-height: max-content;
     }
 
     .divider {
