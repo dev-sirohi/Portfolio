@@ -205,7 +205,6 @@ footer {
 
     .navbar {
         display: none;
-        /* ← kill tabs */
     }
 
     .main-content {
@@ -284,4 +283,23 @@ footer {
     border: 1px solid black;
     padding: 0.2rem 0.5rem;
     font-size: 0.9rem;
+}
+
+#font-toggle {
+    position: fixed;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 2000;
+
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+
+    border: 1px solid black;
+    background-color: cornsilk;
+    cursor: pointer;
+}
+
+#font-toggle:hover {
+    background-color: black;
+    color: cornsilk;
 }

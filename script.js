@@ -2,6 +2,9 @@ let pageData = {};
 
 const FAKE_DELAY = 125;
 const MAX_CHARACTER_LENGTH_IN_JSON_STRINGS = 250;
+const LS_FONT_KEY = "font-mode";
+const LS_FONT_VALUE_MONO = "mono";
+const LS_FONT_VALUE_SERIF = "serif";
 
 const $NAVBAR = document.getElementsByClassName("navbar")[0];
 const $MAIN_CONTENT = document.getElementsByClassName("main-content")[0];
@@ -19,6 +22,8 @@ window.addEventListener("load", async function () {
 async function fn_initPageAsync() {
     try {
         await fn_fetchPageDataAsync();
+        await fn_setFont();
+        await fn_setFontEvent();
         await fn_buildProfileAsync();
         if (fn_isMobileView()) {
             await fn_buildMobileViewAsync();
@@ -29,6 +34,27 @@ async function fn_initPageAsync() {
     } catch (e) {
         alert(e);
     }
+}
+
+async function fn_setFont() {
+    const font = localStorage.getItem(LS_FONT_KEY);
+    if (Utils.String.isEqual(font, LS_FONT_VALUE_MONO)) {
+        document.body.style.fontFamily = '"GoMono-Nerd", monospace';
+    } else {
+        document.body.style.fontFamily = '"IM-Fell-DW-Pica", serif';
+    }
+}
+
+async function fn_setFontEvent() {
+    document.getElementById("font-toggle").onclick = function () {
+        const currentFont = localStorage.getItem(LS_FONT_KEY);
+        if (Utils.String.isEqual(currentFont, LS_FONT_VALUE_MONO)) {
+            localStorage.setItem(LS_FONT_KEY, LS_FONT_VALUE_SERIF);
+        } else {
+            localStorage.setItem(LS_FONT_KEY, LS_FONT_VALUE_MONO);
+        }
+        location.reload();
+    };
 }
 
 async function fn_fetchPageDataAsync() {
