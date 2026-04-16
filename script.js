@@ -1,6 +1,8 @@
 let pageData = {};
 
 const FAKE_DELAY = 125;
+const MAX_CHARACTER_LENGTH_IN_JSON_STRINGS = 250;
+
 const $NAVBAR = document.getElementsByClassName("navbar")[0];
 const $MAIN_CONTENT = document.getElementsByClassName("main-content")[0];
 const $INTRO = document.getElementsByClassName("intro")[0];
@@ -150,6 +152,8 @@ async function fn_buildTabsAsync() {
         $tab.onclick = async function () {
             try {
                 fn_emptyMainContentAsync();
+                $MAIN_CONTENT.classList.add("main-content-other");
+                $MAIN_CONTENT.classList.remove("main-content-about");
                 const elementId = this.getAttribute("data-element-id");
                 await fn_loadMainContentByTabElementIdAsync(elementId);
                 this.classList.add("active");
@@ -173,6 +177,8 @@ async function fn_buildTabsAsync() {
     $tab.onclick = async function () {
         try {
             fn_emptyMainContentAsync();
+            $MAIN_CONTENT.classList.remove("main-content-other");
+            $MAIN_CONTENT.classList.add("main-content-about");
             await fn_loadContentFromContentFormatAsync(
                 tab["TabContent"],
                 Utils.String.toStringSafe("About"),
@@ -524,19 +530,20 @@ const Utils = {
             }
             return result;
         },
-        isObjectSchemaSame: function (
+        isObjectSchemaSame: function ({
             objA = {},
             objB = {},
             validator = {},
             depth = 0,
-        ) {
+            validateCharacterLength = false,
+        } = {}) {
             if (!(typeof objA === "object" && typeof objB === "object")) {
                 throw new Error("Cannot check schema for non-object values");
             }
             if (depth > 10000) {
                 throw new Error("Infinite recursion");
             }
-            if (this.isEmptyObject(validator)) {
+            if (Utils.Object.isEmptyObject(validator)) {
                 if (isNaN(depth) || depth < 0) {
                     throw new Error("Invalid depth");
                 }
@@ -554,6 +561,7 @@ const Utils = {
 
             const objAKeyListSorted = Object.keys(objA).toSorted();
             const objBKeyListSorted = Object.keys(objB).toSorted();
+            debugger;
             if (objAKeyListSorted.length !== objBKeyListSorted.length) {
                 validator.Result = false;
                 validator.Message = "Uneven key length";
@@ -583,16 +591,22 @@ const Utils = {
                     return validator;
                 }
                 if (Array.isArray(objAValue)) {
-                    function _arrayHelper(arrA, arrB, validator, depth = 0) {
+                    function _arrayHelper(
+                        arrA,
+                        arrB,
+                        _validator,
+                        _depth = 0,
+                        _validateCharacterLength = false,
+                    ) {
                         if (!(Array.isArray(arrA) && Array.isArray(arrB))) {
                             throw new Error(
                                 "Cannot check schema for non-array values during array validation",
                             );
                         }
-                        if (depth > 10000) {
+                        if (_depth > 10000) {
                             throw new Error("Infinite recursion");
                         }
-                        if (Utils.Object.isEmptyObject(validator)) {
+                        if (Utils.Object.isEmptyObject(_validator)) {
                             throw new Error(
                                 "Invalid validator during array validation",
                             );
@@ -600,12 +614,12 @@ const Utils = {
 
                         if (arrA.length === 0) {
                             // This means that this array's data is optional and can be of any type
-                            return validator;
+                            return _validator;
                         }
-                        if (objBValue.length === 0) {
-                            validator.Result = false;
-                            validator.Message = `Empty array at required field: ${objAKey}(${typeof arrA}) <> ${objBKey}(${typeof arrB})}`;
-                            return validator;
+                        if (arrB.length === 0) {
+                            _validator.Result = false;
+                            _validator.Message = `Empty array at required field: ${objAKey}(${typeof arrA}) <> ${objBKey}(${typeof arrB})}`;
+                            return _validator;
                         }
                         const firstArrayElementObjA = arrA[0];
                         const firstArrayElementObjB = arrB[0];
@@ -613,9 +627,9 @@ const Utils = {
                             typeof firstArrayElementObjA !==
                             typeof firstArrayElementObjB
                         ) {
-                            validator.Result = false;
-                            validator.Message = `Uneven key value types: ${firstArrayElementObjA}(${typeof firstArrayElementObjA}) <> ${firstArrayElementObjB}(${typeof firstArrayElementObjB})}`;
-                            return validator;
+                            _validator.Result = false;
+                            _validator.Message = `Uneven key value types: ${firstArrayElementObjA}(${typeof firstArrayElementObjA}) <> ${firstArrayElementObjB}(${typeof firstArrayElementObjB})}`;
+                            return _validator;
                         }
                         if (
                             !arrB.every(
@@ -623,9 +637,9 @@ const Utils = {
                                     typeof x === typeof firstArrayElementObjA,
                             )
                         ) {
-                            validator.Result = false;
-                            validator.Message = `Uneven key value types for sibling elements: ${firstArrayElementObjA}(${typeof firstArrayElementObjA}) <> ${firstArrayElementObjB}(${typeof firstArrayElementObjB})}`;
-                            return validator;
+                            _validator.Result = false;
+                            _validator.Message = `Uneven key value types for sibling elements: ${firstArrayElementObjA}(${typeof firstArrayElementObjA}) <> ${firstArrayElementObjB}(${typeof firstArrayElementObjB})}`;
+                            return _validator;
                         }
                         if (
                             firstArrayElementObjA &&
@@ -634,19 +648,71 @@ const Utils = {
                             return _arrayHelper(
                                 firstArrayElementObjA,
                                 firstArrayElementObjB,
-                                validator,
-                                depth + 1,
+                                _validator,
+                                _depth + 1,
+                                _validateCharacterLength,
                             );
                         }
-                        return validator;
+                        if (arrA.length > 0) {
+                            for (let _i = 0; _i < arrB.length; _i++) {
+                                var _objAValue = firstArrayElementObjA;
+                                var _objBValue = arrB[_i];
+                                _validator.TraceList.push(_objBValue);
+                                if (typeof _objBValue === "string") {
+                                    if (_validateCharacterLength === true) {
+                                        if (
+                                            _objBValue.length >
+                                            MAX_CHARACTER_LENGTH_IN_JSON_STRINGS
+                                        ) {
+                                            _validator.Result = false;
+                                            _validator.Message = `Max character size reached`;
+                                            return _validator;
+                                        }
+                                    }
+                                    continue;
+                                }
+                                if (typeof _objBValue === "object") {
+                                    const _newValidator =
+                                        Utils.Object.isObjectSchemaSame({
+                                            objA: _objAValue,
+                                            objB: _objBValue,
+                                            validator: JSON.parse(
+                                                JSON.stringify(_validator),
+                                            ),
+                                            depth: _depth + 1,
+                                            validateCharacterLength:
+                                                _validateCharacterLength,
+                                        });
+                                    if (
+                                        Utils.Object.isEmptyObject(
+                                            _newValidator,
+                                        )
+                                    ) {
+                                        _validator.Result = false;
+                                        _validator.Message = `Invalid validator returned during object recursion`;
+                                        return _validator;
+                                    }
+                                    if (_newValidator.Result === false) {
+                                        _validator.Result = false;
+                                        _validator.Message =
+                                            _newValidator.Message;
+                                        return _validator;
+                                    }
+                                    continue;
+                                }
+                                _validator.TraceList.pop();
+                            }
+                        }
+                        return _validator;
                     }
                     const newValidator = _arrayHelper(
                         objAValue,
                         objBValue,
                         JSON.parse(JSON.stringify(validator)),
-                        0,
+                        depth + 1,
+                        validateCharacterLength,
                     );
-                    if (this.isEmptyObject(newValidator)) {
+                    if (Utils.Object.isEmptyObject(newValidator)) {
                         validator.Result = false;
                         validator.Message = `Invalid validator returned during array recursion`;
                         return validator;
@@ -659,13 +725,14 @@ const Utils = {
                     continue;
                 }
                 if (typeof objAValue === "object") {
-                    const newValidator = this.isObjectSchemaSame(
-                        objAValue,
-                        objBValue,
-                        JSON.parse(JSON.stringify(validator)),
-                        depth + 1,
-                    );
-                    if (this.isEmptyObject(newValidator)) {
+                    const newValidator = Utils.Object.isObjectSchemaSame({
+                        objA: objAValue,
+                        objB: objBValue,
+                        validator: JSON.parse(JSON.stringify(validator)),
+                        depth: depth + 1,
+                        validateCharacterLength: validateCharacterLength,
+                    });
+                    if (Utils.Object.isEmptyObject(newValidator)) {
                         validator.Result = false;
                         validator.Message = `Invalid validator returned during object recursion`;
                         return validator;
@@ -676,6 +743,18 @@ const Utils = {
                         return validator;
                     }
                     continue;
+                }
+                if (typeof objBValue === "string") {
+                    if (validateCharacterLength === true) {
+                        if (
+                            objBValue.length >
+                            MAX_CHARACTER_LENGTH_IN_JSON_STRINGS
+                        ) {
+                            validator.Result = false;
+                            validator.Message = `Max character size reached`;
+                            return validator;
+                        }
+                    }
                 }
                 validator.TraceList.pop();
             }
@@ -710,10 +789,11 @@ const Utils = {
 };
 
 function fn_validateJson(jsonData = {}) {
-    const validationResult = Utils.Object.isObjectSchemaSame(
-        jsonData,
-        JSON.parse(TEST_JSON),
-    );
+    const validationResult = Utils.Object.isObjectSchemaSame({
+        objA: JSON.parse(TEST_JSON),
+        objB: jsonData,
+        validateCharacterLength: true,
+    });
     if (Utils.Object.isEmptyObject(validationResult)) {
         throw new Error("Invalid JSON");
     }

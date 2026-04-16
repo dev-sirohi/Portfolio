@@ -70,42 +70,49 @@
                         {
                             "Name": "ERP/WMS Modules (Professional Work)",
                             "NameLink": "",
-                            "Description": "Developed and optimized multiple ERP/WMS modules including inventory movement, multi-carton receiving, allocation logic, and sales workflows. Reduced API calls from ~50k to <50 through backend optimization and query tuning.",
+                            "Description": "Developed ERP/WMS modules including inventory movement, multi-carton receiving, allocation, and sales workflows. Reduced API calls from ~50k to <50 through backend optimization and query tuning.",
                             "WriteUp": false,
                             "WriteUpLink": ""
                         },
                         {
                             "Name": "Credis (Mini Redis)",
                             "NameLink": "",
-                            "Description": "Redis-inspired in-memory key-value store built from scratch using raw TCP sockets. Implements RESP protocol parsing with zero-copy techniques using Span/Memory, optimized with ArrayPool to reduce GC pressure. Supports concurrent access via thread-safe structures and async I/O for high throughput.",
+                            "Description": "Redis-like in-memory key-value store using raw TCP sockets. Implements RESP parsing with Span/Memory, uses ArrayPool to reduce GC, and supports concurrent access with async I/O for high throughput.",
                             "WriteUp": true,
                             "WriteUpLink": ""
                         },
                         {
                             "Name": "Microblog Platform (Backend)",
                             "NameLink": "",
-                            "Description": "Full-stack microblogging platform with JWT-based authentication (access + refresh tokens), secure cookie handling, and role-based access control. Backend built in ASP.NET Core with planned Redis caching for feed optimization. Frontend built with React featuring protected routes and dynamic feeds.",
+                            "Description": "Microblog platform with JWT auth (access + refresh), secure cookies, and role-based access. Built in ASP.NET Core with planned Redis caching; React frontend with protected routes and dynamic feeds.",
                             "WriteUp": true,
                             "WriteUpLink": ""
                         },
                         {
                             "Name": "Bookseller (Backend - WIP)",
                             "NameLink": "",
-                            "Description": "Backend system for an online bookstore supporting catalog management, inventory tracking, and order workflows. Designed REST APIs with proper validation, relational data modeling, and optimized SQL queries for performance under load.",
+                            "Description": "Backend for an online bookstore with catalog, inventory, and order workflows. Designed REST APIs with validation, relational modeling, and optimized SQL queries for performance.",
                             "WriteUp": false,
                             "WriteUpLink": ""
                         },
                         {
                             "Name": "Personal Budget Tracker (Collaborative - DNF)",
                             "NameLink": "",
-                            "Description": "Expense tracking system to monitor income, spending, and category-based budgeting. Focused on clean data modeling, aggregation queries, and generating insights like monthly trends and category breakdowns.",
+                            "Description": "Expense tracking system for income, spending, and category budgets. Focused on data modeling, aggregation queries, and generating insights like monthly trends and category breakdowns.",
                             "WriteUp": false,
                             "WriteUpLink": ""
                         },
                         {
                             "Name": "Semantic Tagging Prototype (Professional Work)",
                             "NameLink": "",
-                            "Description": "Lightweight system for generating and comparing text embeddings to enable intelligent tagging and improved search relevance. Designed as a foundation for AI-assisted categorization in enterprise systems.",
+                            "Description": "Lightweight system for generating and comparing embeddings to enable intelligent tagging and improved search relevance, forming a base for AI-assisted categorization.",
+                            "WriteUp": false,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Semantic Tagging Prototype (Professional Work)",
+                            "NameLink": "",
+                            "Description": "Lightweight system for generating and comparing embeddings to enable intelligent tagging and improved search relevance, forming a base for AI-assisted categorization.",
                             "WriteUp": false,
                             "WriteUpLink": ""
                         }

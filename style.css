@@ -109,20 +109,28 @@ body {
 
 /* PROJECT STYLES */
 
-.main-content {
+.main-content-other {
+    display: grid;
+    grid-template-columns: repeat(2, 20vw);
+    justify-content: center;
+    gap: 1rem;
+}
+
+.main-content-about {
     display: flex;
     flex-wrap: wrap;
     /* justify-content: flex-start; */
     /* background-color: beige; */
     /* min-width: 50vw; */
-    min-height: 50vh;
-    justify-content: center;
+    height: max-content;
+    justify-content: flex-start;
 }
 
 .content-block {
     /* background-color: burlywood; */
+    min-height: 13.5rem;
     height: max-content;
-    width: 20vw;
+    /* width: 20vw; */
     /* min-width: 10vw;
             max-width: 10vw; */
     display: flex;
@@ -216,6 +224,7 @@ footer {
         width: 100%;
     }
 }
+
 .about-root {
     max-width: 100%;
     padding: 2rem;
@@ -227,7 +236,8 @@ footer {
 }
 
 .about-pic {
-    width: 7.5rem; /* 120px */
+    width: 7.5rem;
+    /* 120px */
     height: 7.5rem;
     border-radius: 50%;
     object-fit: cover;
@@ -246,7 +256,7 @@ footer {
     margin-top: 2rem;
 }
 
-.about-section > h3 {
+.about-section>h3 {
     justify-self: center;
 }
 
