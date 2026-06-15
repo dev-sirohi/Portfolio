@@ -55,6 +55,7 @@ async function fn_initPageAsync() {
             Utils.Events.mouseClick($NAVBAR.firstElementChild);
         }
     } catch (e) {
+        console.error(e);
         alert(e);
     }
 }
