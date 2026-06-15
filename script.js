@@ -1,10 +1,25 @@
 let pageData = {};
 
 const FAKE_DELAY = 125;
-const MAX_CHARACTER_LENGTH_IN_JSON_STRINGS = 250;
-const LS_FONT_KEY = "font-mode";
-const LS_FONT_VALUE_MONO = "mono";
-const LS_FONT_VALUE_SERIF = "serif";
+const MAX_CHARACTER_LENGTH_IN_JSON_STRINGS = 800;
+
+// Everything below is driven by the "Config" block in db.json — there are no
+// client-side switches. The end user cannot change these; the owner does, in JSON.
+const FONT_MONO = "mono";
+const FONT_SERIF = "serif";
+const LAYOUT_STATIC = "static";
+const LAYOUT_DYNAMIC = "dynamic";
+const DEFAULT_FONT = FONT_MONO;
+const DEFAULT_LAYOUT = LAYOUT_STATIC;
+const DEFAULT_THEME = "cream-sienna";
+// Themes available in style.css as `.theme-<name>` rules.
+const THEMES = [
+    "cream-sienna",
+    "cream-pine",
+    "slate-amber",
+    "midnight-rose",
+    "sand-plum",
+];
 
 const $NAVBAR = document.getElementsByClassName("navbar")[0];
 const $MAIN_CONTENT = document.getElementsByClassName("main-content")[0];
@@ -14,6 +29,7 @@ const $NAME = document.getElementsByClassName("name")[0];
 const $PHONE_NUMBER = document.getElementsByClassName("phone-number")[0];
 const $TAGLINE = document.getElementsByClassName("tagline")[0];
 const $SOCIALS = document.getElementsByClassName("socials")[0];
+const $SKILLS = document.getElementsByClassName("skills")[0];
 
 window.addEventListener("load", async function () {
     await fn_initPageAsync();
@@ -22,11 +38,18 @@ window.addEventListener("load", async function () {
 async function fn_initPageAsync() {
     try {
         await fn_fetchPageDataAsync();
-        await fn_setFont();
-        await fn_setFontEvent();
+        fn_applyConfig();
         await fn_buildProfileAsync();
-        if (fn_isMobileView()) {
-            await fn_buildMobileViewAsync();
+        await fn_buildSkillsAsync();
+
+        // Mobile is always single-page; on desktop the JSON config decides.
+        const isSinglePage = fn_isMobileView() || fn_isStaticLayout();
+        document.body.classList.add(
+            isSinglePage ? "layout-static" : "layout-dynamic",
+        );
+
+        if (isSinglePage) {
+            await fn_buildSinglePageAsync();
         } else {
             await fn_buildTabsAsync();
             Utils.Events.mouseClick($NAVBAR.firstElementChild);
@@ -36,25 +59,36 @@ async function fn_initPageAsync() {
     }
 }
 
-async function fn_setFont() {
-    const font = localStorage.getItem(LS_FONT_KEY);
-    if (Utils.String.isEqual(font, LS_FONT_VALUE_MONO)) {
-        document.body.style.fontFamily = '"GoMono-Nerd", monospace';
-    } else {
+function fn_getConfig() {
+    const config = pageData.db && pageData.db["Config"];
+    return config && typeof config === "object" ? config : {};
+}
+
+function fn_applyConfig() {
+    const config = fn_getConfig();
+
+    // Theme — apply the matching `.theme-<name>` class, falling back to default.
+    let theme = Utils.String.toStringSafe(config["Theme"]).trim();
+    if (!THEMES.includes(theme)) {
+        theme = DEFAULT_THEME;
+    }
+    document.body.classList.add("theme-" + theme);
+
+    // Font — mono by default, serif only when explicitly requested.
+    const font = Utils.String.isEqual(config["Font"], FONT_SERIF)
+        ? FONT_SERIF
+        : DEFAULT_FONT;
+    if (font === FONT_SERIF) {
         document.body.style.fontFamily = '"IM-Fell-DW-Pica", serif';
+    } else {
+        document.body.style.fontFamily = '"GoMono-Nerd", monospace';
     }
 }
 
-async function fn_setFontEvent() {
-    document.getElementById("font-toggle").onclick = function () {
-        const currentFont = localStorage.getItem(LS_FONT_KEY);
-        if (Utils.String.isEqual(currentFont, LS_FONT_VALUE_MONO)) {
-            localStorage.setItem(LS_FONT_KEY, LS_FONT_VALUE_SERIF);
-        } else {
-            localStorage.setItem(LS_FONT_KEY, LS_FONT_VALUE_MONO);
-        }
-        location.reload();
-    };
+function fn_isStaticLayout() {
+    // Static is the default; dynamic (tabbed) only when explicitly configured.
+    const config = fn_getConfig();
+    return !Utils.String.isEqual(config["Layout"], LAYOUT_DYNAMIC);
 }
 
 async function fn_fetchPageDataAsync() {
@@ -121,41 +155,57 @@ async function fn_buildProfileAsync() {
     }
 }
 
-async function fn_buildMobileViewAsync() {
-    await fn_emptyMainContentAsync();
-
-    let $divider = document.createElement("hr");
-    $divider.classList.add("divider");
-    $MAIN_CONTENT.appendChild($divider);
-
-    const tabs = pageData.db["Content"]["Tabs"];
-
-    for (let tab of tabs) {
-        const $title = document.createElement("h2");
-        $title.innerText = tab["Name"];
-        $MAIN_CONTENT.appendChild($title);
-
-        await fn_loadContentFromContentFormatAsync(
-            tab["TabContent"],
-            tab["TabContentFormat"],
-        );
-
-        $divider = document.createElement("hr");
-        $divider.classList.add("divider");
-        $MAIN_CONTENT.appendChild($divider);
+async function fn_buildSkillsAsync() {
+    const tech =
+        pageData.db["OwnerInfo"]["About"]["TabContent"]["TechStack"] || [];
+    if (!tech.length) {
+        return;
     }
 
-    // About at last
-    const about = pageData.db["OwnerInfo"]["About"];
+    const $label = document.createElement("span");
+    $label.classList.add("skills-label");
+    $label.innerText = "Skills";
+    $SKILLS.appendChild($label);
 
-    // const $title = document.createElement("h2");
-    // $title.innerText = about["Name"];
-    // $MAIN_CONTENT.appendChild($title);
+    tech.forEach((t) => {
+        const $chip = document.createElement("span");
+        $chip.classList.add("tech-chip");
+        $chip.innerText = t;
+        $SKILLS.appendChild($chip);
+    });
+}
 
-    await fn_loadContentFromContentFormatAsync(
-        about["TabContent"],
-        about["TabContentFormat"],
-    );
+// Single-page (static) layout — used on mobile and whenever Config.Layout is
+// "static". Order: Experience, then Projects, then Education. Skills already
+// live under the header, so they are not repeated here.
+async function fn_buildSinglePageAsync() {
+    await fn_emptyMainContentAsync();
+    $MAIN_CONTENT.classList.add("main-content-single");
+
+    const about = pageData.db["OwnerInfo"]["About"]["TabContent"];
+    const exp = about["ProfessionalExperience"] || [];
+    const edu = about["Education"] || [];
+
+    if (exp.length) {
+        $MAIN_CONTENT.appendChild(fn_buildExperienceSection(exp));
+    }
+
+    for (let tab of pageData.db["Content"]["Tabs"]) {
+        if (
+            Utils.Object.isEmptyObject(tab) ||
+            Utils.String.isNullOrEmpty(tab["Name"])
+        ) {
+            continue;
+        }
+        await Utils.Lang.setDelay(FAKE_DELAY);
+        $MAIN_CONTENT.appendChild(
+            fn_buildProjectsSection(tab["Name"], tab["TabContent"]),
+        );
+    }
+
+    if (edu.length) {
+        $MAIN_CONTENT.appendChild(fn_buildEducationSection(edu));
+    }
 }
 
 async function fn_buildTabsAsync() {
@@ -299,65 +349,124 @@ async function fn_loadNoContentAsync() {
     $MAIN_CONTENT.appendChild($noContent);
 }
 
+function fn_createProjectBlock(c = {}) {
+    const name = c["Name"];
+    const nameLink = c["NameLink"];
+    const description = c["Description"];
+    const writeUp = "WriteUp";
+    const writeUpLink = c["WriteUpLink"];
+
+    const $contentBlock = document.createElement("div");
+    const $contentTitle = document.createElement("span");
+    const $contentDesc = document.createElement("span");
+    const $writeup = document.createElement("span");
+    const $writeupLink = document.createElement("i");
+
+    $contentBlock.classList.add("content-block");
+    $contentTitle.classList.add("content-title");
+    $contentTitle.classList.add("link");
+    $contentDesc.classList.add("content-desc");
+    $writeup.classList.add("writeup");
+    $writeupLink.classList.add("writeup-link");
+    $writeupLink.classList.add("link");
+
+    $writeupLink.innerHTML = writeUp + fn_getRedirectSvg();
+    $contentTitle.innerHTML = name + fn_getRedirectSvg();
+    $contentDesc.innerHTML = description;
+
+    $writeup.appendChild($writeupLink);
+
+    $contentBlock.appendChild($contentTitle);
+    $contentBlock.appendChild($contentDesc);
+    $contentBlock.appendChild($writeup);
+
+    $contentTitle.onclick = function () {
+        Utils.Api.openInNewWindow(nameLink);
+    };
+    $writeupLink.onclick = function () {
+        Utils.Api.execHref(writeUpLink);
+    };
+
+    return $contentBlock;
+}
+
 async function fn_loadGridContentAsync(content = {}) {
-    // fn_emptyMainContentAsync();
     await Utils.Lang.setDelay(FAKE_DELAY);
     if (Utils.Object.isEmptyObject(content)) {
         throw new Error("Invalid content [fn_getGridContent]");
     }
-    var contentList = content["ContentList"];
-    contentList.forEach((c) => {
-        const name = c["Name"];
-        const nameLink = c["NameLink"];
-        const description = c["Description"];
-        const writeUp = "WriteUp";
-        const writeUpLink = c["WriteUpLink"];
-
-        /**
-         * create content-block
-         * create content-title - name
-         * create content-desc - description
-         * create writeup > link - writeup
-         * add classes
-         * add innerHTML
-         * create element tree
-         * attach to main-content
-         */
-
-        const $contentBlock = document.createElement("div");
-        const $contentTitle = document.createElement("span");
-        const $contentDesc = document.createElement("span");
-        const $writeup = document.createElement("span");
-        const $writeupLink = document.createElement("i");
-
-        $contentBlock.classList.add("content-block");
-        $contentTitle.classList.add("content-title");
-        $contentTitle.classList.add("link");
-        $contentDesc.classList.add("content-desc");
-        $writeup.classList.add("writeup");
-        $writeupLink.classList.add("writeup-link");
-        $writeupLink.classList.add("link");
-
-        $writeupLink.innerHTML = writeUp + fn_getRedirectSvg();
-        $contentTitle.innerHTML = name + fn_getRedirectSvg();
-        $contentDesc.innerHTML = description;
-
-        $writeup.appendChild($writeupLink);
-
-        $contentBlock.appendChild($contentTitle);
-        $contentBlock.appendChild($contentDesc);
-        $contentBlock.appendChild($writeup);
-
-        $MAIN_CONTENT.appendChild($contentBlock);
-
-        /**
-         * Events
-         */
-
-        $writeupLink.onclick = function () {
-            Utils.Api.execHref(writeUpLink);
-        };
+    (content["ContentList"] || []).forEach((c) => {
+        $MAIN_CONTENT.appendChild(fn_createProjectBlock(c));
     });
+}
+
+function fn_createSection(titleText = "") {
+    const $section = document.createElement("div");
+    $section.classList.add("page-section");
+    const $title = document.createElement("h2");
+    $title.classList.add("section-title");
+    $title.innerText = titleText;
+    $section.appendChild($title);
+    return $section;
+}
+
+function fn_createExperienceItem(e = {}) {
+    const $item = document.createElement("div");
+    $item.classList.add("about-item");
+
+    const $top = document.createElement("div");
+    $top.classList.add("about-item-top");
+    $top.innerHTML = `<b>${e.CompanyName}</b> — ${e.JobType}`;
+
+    const $meta = document.createElement("div");
+    $meta.classList.add("about-meta");
+    $meta.innerText = `${e.JoinDate} - ${e.IsCurrentJob ? "Present" : e.EndDate}`;
+
+    const $desc = document.createElement("div");
+    $desc.classList.add("about-item-desc");
+    $desc.innerText = e.Description;
+
+    $item.appendChild($top);
+    $item.appendChild($meta);
+    $item.appendChild($desc);
+    return $item;
+}
+
+function fn_createEducationItem(e = {}) {
+    const $item = document.createElement("div");
+    $item.classList.add("about-item");
+    $item.innerHTML = `
+        <b>${e.Course}</b><br>
+        ${e.Institution}<br>
+        ${e.StartDate} - ${e.IsOngoing ? "Present" : e.EndDate}
+    `;
+    return $item;
+}
+
+function fn_buildExperienceSection(exp = []) {
+    const $section = fn_createSection("Experience");
+    exp.forEach((e) => $section.appendChild(fn_createExperienceItem(e)));
+    return $section;
+}
+
+function fn_buildEducationSection(edu = []) {
+    const $section = fn_createSection("Education");
+    const $inner = document.createElement("div");
+    $inner.classList.add("about-edu-section");
+    edu.forEach((e) => $inner.appendChild(fn_createEducationItem(e)));
+    $section.appendChild($inner);
+    return $section;
+}
+
+function fn_buildProjectsSection(name = "Projects", content = {}) {
+    const $section = fn_createSection(name);
+    const $grid = document.createElement("div");
+    $grid.classList.add("content-grid");
+    (content["ContentList"] || []).forEach((c) => {
+        $grid.appendChild(fn_createProjectBlock(c));
+    });
+    $section.appendChild($grid);
+    return $section;
 }
 
 async function fn_loadAboutContentAsync(content = {}) {
@@ -374,7 +483,6 @@ async function fn_loadAboutContentAsync(content = {}) {
     const picLink = content["ProfilePicLink"];
     const exp = content["ProfessionalExperience"] || [];
     const edu = content["Education"] || [];
-    const tech = content["TechStack"] || [];
 
     const $container = document.createElement("div");
     $container.classList.add("about-root");
@@ -386,105 +494,15 @@ async function fn_loadAboutContentAsync(content = {}) {
         $img.src = picLink;
         $img.classList.add("about-pic");
         $header.appendChild($img);
-        // const $name = document.createElement("h2");
-        // $name.innerText = "Dev Sirohi";
-        // $name.classList.add("about-name");
-
-        // const $desc = document.createElement("p");
-        // $desc.classList.add("about-desc");
-        // $desc.innerHTML = `
-        //     Software engineer building backend-heavy systems.<br>
-        //     Focused on performance, networking, and low-level design.
-        // `;
-
-        // $header.appendChild($name);
-        // $header.appendChild($desc);
         $container.appendChild($header);
     }
 
+    // Skills now live under the page header (fn_buildSkillsAsync), not here.
     if (exp.length) {
-        const $section = document.createElement("div");
-        $section.classList.add("about-section");
-
-        const $title = document.createElement("h3");
-        $title.innerText = "Experience";
-        $section.appendChild($title);
-
-        exp.forEach((e) => {
-            const $item = document.createElement("div");
-            $item.classList.add("about-item");
-
-            const $top = document.createElement("div");
-            $top.classList.add("about-item-top");
-            $top.innerHTML = `<b>${e.CompanyName}</b> — ${e.JobType}`;
-
-            const $meta = document.createElement("div");
-            $meta.classList.add("about-meta");
-            $meta.innerText = `${e.JoinDate} - ${e.IsCurrentJob ? "Present" : e.EndDate}`;
-
-            const $desc = document.createElement("div");
-            $desc.classList.add("about-item-desc");
-            $desc.innerText = e.Description;
-
-            $item.appendChild($top);
-            $item.appendChild($meta);
-            $item.appendChild($desc);
-
-            $section.appendChild($item);
-        });
-
-        $container.appendChild($section);
+        $container.appendChild(fn_buildExperienceSection(exp));
     }
-
     if (edu.length) {
-        const $section = document.createElement("div");
-        $section.classList.add("about-section");
-
-        const $title = document.createElement("h3");
-        $title.innerText = "Education";
-        $section.appendChild($title);
-
-        const $innerSection = document.createElement("div");
-        $innerSection.classList.add("about-edu-section");
-
-        edu.forEach((e) => {
-            const $item = document.createElement("div");
-            $item.classList.add("about-item");
-
-            $item.innerHTML = `
-                <b>${e.Course}</b><br>
-                ${e.Institution}<br>
-                ${e.StartDate} - ${e.IsOngoing ? "Present" : e.EndDate}
-            `;
-
-            $innerSection.appendChild($item);
-        });
-
-        $section.appendChild($innerSection);
-
-        $container.appendChild($section);
-    }
-
-    if (tech.length) {
-        const $section = document.createElement("div");
-        $section.classList.add("about-section");
-
-        const $title = document.createElement("h3");
-        $title.innerText = "Tech Stack";
-        $section.appendChild($title);
-
-        const $grid = document.createElement("div");
-        $grid.classList.add("tech-grid");
-
-        tech.forEach((t) => {
-            const $chip = document.createElement("span");
-            $chip.classList.add("tech-chip");
-            $chip.innerText = t;
-            $grid.appendChild($chip);
-        });
-
-        $section.appendChild($grid);
-        $container.appendChild($section);
+        $container.appendChild(fn_buildEducationSection(edu));
     }
 
     $MAIN_CONTENT.appendChild($container);
@@ -861,6 +879,11 @@ function fn_isMobileView() {
 }
 
 const TEST_JSON = `{
+    "Config": {
+        "Theme": "",
+        "Font": "",
+        "Layout": ""
+    },
     "OwnerInfo": {
         "FirstName": "",
         "LastName": "",

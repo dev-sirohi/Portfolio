@@ -1,11 +1,16 @@
 {
+    "Config": {
+        "Theme": "sand-plum",
+        "Font": "serif",
+        "Layout": "static"
+    },
     "OwnerInfo": {
         "FirstName": "Dev",
         "LastName": "Sirohi",
         "PhoneNumber": "(+91) 989-953-7470",
-        "Tagline": "Software engineer with experience building enterprise ERP/WMS systems using <b>.NET (C#)</b>, <b>SQL Server</b>, and <b>JavaScript</b>. Currently deepening expertise in systems programming, networking, and performance-oriented backend systems.",
+        "Tagline": "Software engineer with 2+ years building enterprise ERP/WMS systems using <b>.NET (C#)</b>, <b>SQL Server</b>, and <b>JavaScript</b>. Hands-on with event-driven architecture, distributed systems, and cloud-native tooling.",
         "Socials": {
-            "Instagram": "https://instagram.com/dev_sirohi_",
+            "Instagram": "",
             "LinkedIn": "https://linkedin.com/in/devsirohi179",
             "Github": "https://github.com/dev-sirohi",
             "X": ""
@@ -18,14 +23,24 @@
                 "ProfilePicLink": "",
                 "ProfessionalExperience": [
                     {
-                        "CompanyName": "Xorosoft Technologies",
+                        "CompanyName": "Xorosoft Technologies — XoroERP",
                         "CompanyWebsiteLink": "",
                         "JobType": "Associate Software Engineer",
                         "Location": "On-site",
                         "JoinDate": "Jan 2024",
-                        "EndDate": "",
-                        "IsCurrentJob": true,
-                        "Description": "Working on ERP/WMS systems. Built complex inventory, sales, and manufacturing modules. Optimized backend APIs (50k → <50 calls), improved query performance, and handled full dev → QA → release lifecycle."
+                        "EndDate": "Jul 2026",
+                        "IsCurrentJob": false,
+                        "Description": "Built an Inventory Reservation System from scratch — covering lifecycle management, allocation workflows, aging analysis, and reporting — rolled out to 150+ enterprise clients within 2 months. Automated state transitions via SQL Server jobs and .NET background services, eliminating 2–3 hours of daily manual reconciliation per client. Developed a semantic-tagging PoC using text embeddings that improved search relevance by ~60% in internal testing."
+                    },
+                    {
+                        "CompanyName": "Xorosoft Technologies — XoroWMS",
+                        "CompanyWebsiteLink": "",
+                        "JobType": "Associate Software Engineer",
+                        "Location": "On-site",
+                        "JoinDate": "Jan 2024",
+                        "EndDate": "Jul 2026",
+                        "IsCurrentJob": false,
+                        "Description": "Owned and enhanced critical WMS modules in a 6+ year legacy C# codebase across inventory, purchasing, and fulfillment. Delivered 150+ feature tickets full-stack with minimal documentation. Reduced API calls on a critical workflow from ~50,000 to under 50, cutting response time from ~9s to under 300ms. Rewrote SQL Server execution plans improving high-traffic query performance by 40–70%."
                     }
                 ],
                 "Education": [
@@ -50,10 +65,17 @@
                     ".NET (C#)",
                     "ASP.NET Core",
                     "SQL Server",
-                    "JavaScript",
-                    "React",
+                    "Python",
+                    "FastAPI",
+                    "PostgreSQL",
+                    "pgvector",
                     "Redis",
+                    "Kafka",
                     "Docker",
+                    "React",
+                    "TypeScript",
+                    "OpenTelemetry",
+                    "Azure",
                     "TCP / Networking",
                     "Systems Programming"
                 ]
@@ -68,101 +90,23 @@
                 "TabContent": {
                     "ContentList": [
                         {
-                            "Name": "ERP/WMS Modules (Professional Work)",
-                            "NameLink": "",
-                            "Description": "Developed ERP/WMS modules including inventory movement, multi-carton receiving, allocation, and sales workflows. Reduced API calls from ~50k to <50 through backend optimization and query tuning.",
+                            "Name": "Microblog Platform",
+                            "NameLink": "https://github.com/dev-sirohi/microblog",
+                            "Description": "Full-stack microblog on ASP.NET Core / .NET 10 with JWT auth (access + refresh), secure cookies, and role-based access. Redis caching cut API response time by ~65% under load. NBomber load tests at 500 concurrent users confirmed 1,200+ req/s. Integrated Kafka, OpenTelemetry, Azure Blob/Key Vault, and AI-powered recommendations via vector embeddings.",
+                            "WriteUp": false,
+                            "WriteUpLink": ""
+                        },
+                        {
+                            "Name": "Stocksense — Warehouse Intelligence",
+                            "NameLink": "https://github.com/dev-sirohi/stocksense",
+                            "Description": "Inventory intelligence platform for an FMCG distributor managing 1,200+ SKUs across 300+ stores. Built on Python, FastAPI, and PostgreSQL with pgvector semantic search and a RAG pipeline achieving sub-500ms query response. Aging and low-stock alert engine flags at-risk inventory 3–5 days earlier than prior manual review.",
                             "WriteUp": false,
                             "WriteUpLink": ""
                         },
                         {
                             "Name": "Credis (Mini Redis)",
-                            "NameLink": "",
-                            "Description": "Redis-like in-memory key-value store using raw TCP sockets. Implements RESP parsing with Span/Memory, uses ArrayPool to reduce GC, and supports concurrent access with async I/O for high throughput.",
-                            "WriteUp": true,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Microblog Platform (Backend)",
-                            "NameLink": "",
-                            "Description": "Microblog platform with JWT auth (access + refresh), secure cookies, and role-based access. Built in ASP.NET Core with planned Redis caching; React frontend with protected routes and dynamic feeds.",
-                            "WriteUp": true,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Bookseller (Backend - WIP)",
-                            "NameLink": "",
-                            "Description": "Backend for an online bookstore with catalog, inventory, and order workflows. Designed REST APIs with validation, relational modeling, and optimized SQL queries for performance.",
-                            "WriteUp": false,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Personal Budget Tracker (Collaborative - DNF)",
-                            "NameLink": "",
-                            "Description": "Expense tracking system for income, spending, and category budgets. Focused on data modeling, aggregation queries, and generating insights like monthly trends and category breakdowns.",
-                            "WriteUp": false,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Semantic Tagging Prototype (Professional Work)",
-                            "NameLink": "",
-                            "Description": "Lightweight system for generating and comparing embeddings to enable intelligent tagging and improved search relevance, forming a base for AI-assisted categorization.",
-                            "WriteUp": false,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Semantic Tagging Prototype (Professional Work)",
-                            "NameLink": "",
-                            "Description": "Lightweight system for generating and comparing embeddings to enable intelligent tagging and improved search relevance, forming a base for AI-assisted categorization.",
-                            "WriteUp": false,
-                            "WriteUpLink": ""
-                        }
-                    ]
-                }
-            },
-            {
-                "Name": "Recreational",
-                "TabContentFormat": "Grid",
-                "TabContent": {
-                    "ContentList": [
-                        {
-                            "Name": "Build Your Own TCP Stack (WIP)",
-                            "NameLink": "",
-                            "Description": "Exploring low-level networking by implementing parts of TCP behavior manually—connection handling, packet parsing, and state transitions—to understand how networking actually works under the hood.",
-                            "WriteUp": false,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Mini HTTP Server in C",
-                            "NameLink": "",
-                            "Description": "Barebones HTTP server built using sockets in C. Handles request parsing, routing, and static responses while focusing on performance, memory control, and understanding protocol-level behavior.",
-                            "WriteUp": false,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Custom Memory Allocator",
-                            "NameLink": "",
-                            "Description": "Experimenting with writing a malloc/free replacement to understand heap management, fragmentation, and performance tradeoffs in memory allocation.",
-                            "WriteUp": false,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Concurrency Playground",
-                            "NameLink": "",
-                            "Description": "Collection of experiments around threads, async models, lock-free structures, and synchronization primitives to deeply understand concurrency patterns and pitfalls.",
-                            "WriteUp": false,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Log-Structured Storage Engine",
-                            "NameLink": "",
-                            "Description": "Attempt to build a simple append-only storage engine inspired by LSM trees. Focus on write optimization, compaction strategies, and disk I/O behavior.",
-                            "WriteUp": false,
-                            "WriteUpLink": ""
-                        },
-                        {
-                            "Name": "Protocol Implementations (RESP, HTTP, Custom)",
-                            "NameLink": "",
-                            "Description": "Re-implementing protocols from scratch (like Redis RESP and HTTP) to understand wire formats, parsing efficiency, and real-world networking constraints.",
+                            "NameLink": "https://github.com/dev-sirohi/Recreational/tree/main/credis-a-c-sharp-in-memory-db",
+                            "Description": "Redis-like in-memory key-value store over raw TCP sockets in C#. Implements RESP protocol parsing with Span/Memory to avoid heap allocations, uses ArrayPool to reduce GC pressure, and handles concurrent client connections via async I/O.",
                             "WriteUp": false,
                             "WriteUpLink": ""
                         }
